@@ -20,7 +20,7 @@ func parseTag(tag string) (string, bool) {
 func populateObject(target any, value any) error {
 	ref := reflect.ValueOf(target)
 	if ref.Kind() != reflect.Ptr {
-		panic("unexpected type, expected pointer")
+		return fmt.Errorf("unexpected object type, expected ptr got %s", ref.Kind())
 	}
 	objVal := reflect.Indirect(ref)
 
@@ -63,7 +63,7 @@ func populateObject(target any, value any) error {
 		}
 		for i := 0; i < objVal.NumField(); i++ {
 			field := objVal.Type().Field(i)
-			tag := field.Tag.Get("bencode")
+			tag, _ := field.Tag.Lookup("bencode")
 			if tag == "" {
 				tag = field.Name
 			}
