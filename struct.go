@@ -53,6 +53,7 @@ func populateObject(target any, value any) error {
 		return fmt.Errorf("unexpected type, expected slice got %s", reflect.TypeOf(value).Kind())
 
 	case reflect.Map:
+		// TODO
 
 	// We turn Bencode dictionaries into structs
 	case reflect.Struct:
